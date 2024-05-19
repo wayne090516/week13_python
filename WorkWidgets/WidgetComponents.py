@@ -30,3 +30,20 @@ class ButtonComponent(QtWidgets.QPushButton):
         self.setText(text)
         self.setFont(QtGui.QFont("Arial", font_size))
 
+class ScrollLabelComponent(QtWidgets.QWidget):
+    def __init__(self, font_size, content, style=""):
+        super().__init__()
+
+        self.label = LabelComponent(font_size, content, style)
+
+        scroll_area = QtWidgets.QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setWidget(self.label)
+
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(scroll_area)
+
+        self.setLayout(layout)
+
+    def set_text(self, text):
+        self.label.setText(text)

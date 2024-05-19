@@ -1,5 +1,5 @@
 from PyQt6 import QtWidgets
-from WorkWidgets.WidgetComponents import LabelComponent
+from WorkWidgets.WidgetComponents import LabelComponent, ScrollLabelComponent
 from client.ServiceController import ExecuteCommand
 import json
 
@@ -13,15 +13,10 @@ class ShowStuWidget(QtWidgets.QWidget):
 
         header_label = LabelComponent(20, "Show Student")
 
-        self.container_widget = QtWidgets.QWidget()
-        self.container_layout = QtWidgets.QVBoxLayout(self.container_widget)
-
-        self.scroll_area = QtWidgets.QScrollArea(self)
-        self.scroll_area.setWidgetResizable(True)
-        self.scroll_area.setWidget(self.container_widget)
+        self.scroll_label = ScrollLabelComponent(20, "")
 
         layout.addWidget(header_label, 0, 0)
-        layout.addWidget(self.scroll_area, 1, 0)
+        layout.addWidget(self.scroll_label, 1, 0)
 
         # Set Layout
         layout.setColumnStretch(0, 1)
@@ -47,8 +42,4 @@ class ShowStuWidget(QtWidgets.QWidget):
                 stu_list += f"  subject: {subject}, score: {float(score)}\n"
             stu_list += "\n"
         stu_list += "\n======================"
-
-        stu_list_label = QtWidgets.QLabel(stu_list, self.container_widget)
-        stu_list_label.setStyleSheet("font-size: 24px;")
-        self.container_layout.addWidget(stu_list_label)
-        self.scroll_area.setWidget(self.container_widget)
+        self.scroll_label.set_text(stu_list)
